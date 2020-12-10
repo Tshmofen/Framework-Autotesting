@@ -1,11 +1,11 @@
-package com.epam.automation.ramby.driver;
+package com.epam.automation.ramby.provider;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class DriverSingleton {
+public class DriverProvider {
     private static WebDriver driver;
 
     public static WebDriver getDriver() {

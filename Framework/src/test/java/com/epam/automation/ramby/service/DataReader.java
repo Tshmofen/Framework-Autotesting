@@ -1,5 +1,6 @@
 package com.epam.automation.ramby.service;
 
+import com.epam.automation.ramby.provider.LogProvider;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -14,10 +15,12 @@ public class DataReader {
     private static final String CALCULATOR_DATA_PATH = "test-data/calculator_input.json";
 
     public static Object[][] getProductsLinks() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + PRODUCTS_LINKS_PATH);
         return new Gson().fromJson(getJsonResourceReader(PRODUCTS_LINKS_PATH), Object[][].class);
     }
 
     public static Object[][] getCalculatorInput() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + CALCULATOR_DATA_PATH);
         return new Gson().fromJson(getJsonResourceReader(CALCULATOR_DATA_PATH), Object[][].class);
     }
 
