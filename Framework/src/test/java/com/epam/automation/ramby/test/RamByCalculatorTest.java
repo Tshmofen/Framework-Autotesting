@@ -1,32 +1,18 @@
 package com.epam.automation.ramby.test;
 
 import com.epam.automation.ramby.page.RamByVTBCalculatorPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
+import com.epam.automation.ramby.service.DataReader;
 import org.testng.annotations.*;
 
-public class RamByCalculatorTest {
-    public WebDriver driver;
+import java.io.FileNotFoundException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+public class RamByCalculatorTest extends CommonDriverTest {
     @DataProvider
-    public Object[][] calculatorVTBData() {
-        return new Object[][]{
-                {"2500", "500", "2 854.19 руб."},
-                {"1500", "0", "1 765.65 руб."}
-        };
-    }
-
-    @BeforeMethod(alwaysRun = true)
-    public void browserDriverSetup() {
-        // support for linux instances on ci
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("disable-gpu");
-        chromeOptions.addArguments("window-size=1280,720");
-        driver = new ChromeDriver(chromeOptions);
+    public Object[][] calculatorVTBData() throws FileNotFoundException {
+        return DataReader.getCalculatorInput();
     }
 
     @Test(dataProvider = "calculatorVTBData")
@@ -37,11 +23,6 @@ public class RamByCalculatorTest {
                 .submitVTBCalculatorForm()
                 .findFinalVTBCalculatorPrice();
 
-        Assert.assertEquals(finalPrice, expectedPrice);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void browserShutDown(){
-        driver.quit();
+        assertThat(finalPrice, is(equalTo(expectedPrice)));
     }
 }
