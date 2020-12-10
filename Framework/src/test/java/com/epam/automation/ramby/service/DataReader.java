@@ -4,10 +4,9 @@ import com.epam.automation.ramby.provider.LogProvider;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class DataReader {
@@ -26,7 +25,10 @@ public class DataReader {
 
     private static JsonReader getJsonResourceReader(String jsonResourcePath) throws FileNotFoundException {
         URL fileResource  = DataReader.class.getClassLoader().getResource(jsonResourcePath);
-        File file = new File(Objects.requireNonNull(fileResource).getFile());
-        return new JsonReader(new FileReader(file));
+        if (fileResource == null) throw new FileNotFoundException();
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(fileResource.getFile()), StandardCharsets.UTF_8)
+        );
+        return new JsonReader(reader);
     }
 }
