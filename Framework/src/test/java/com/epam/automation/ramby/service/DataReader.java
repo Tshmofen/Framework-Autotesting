@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.Objects;
 
 public class DataReader {
-    private static String PRODUCTS_LINKS_PATH = "test-data/products_links.json";
-    private static String CALCULATOR_DATA_PATH = "test-data/calculator_input.json";
+    private static final String PRODUCTS_LINKS_PATH = "test-data/products_links.json";
+    private static final String CALCULATOR_DATA_PATH = "test-data/calculator_input.json";
 
     public static Object[][] getProductsLinks() throws FileNotFoundException {
         return new Gson().fromJson(getJsonResourceReader(PRODUCTS_LINKS_PATH), Object[][].class);
