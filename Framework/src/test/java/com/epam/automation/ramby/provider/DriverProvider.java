@@ -23,6 +23,7 @@ public class DriverProvider {
     }
 
     public static void shutDriver() {
+        driver.close();
         driver.quit();
         driver = null;
     }
