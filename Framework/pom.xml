@@ -13,6 +13,14 @@
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/test/java/resources</directory>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>

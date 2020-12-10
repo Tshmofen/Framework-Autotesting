@@ -2,7 +2,6 @@ package com.epam.automation.ramby.test;
 
 import com.epam.automation.ramby.page.RamByCartingPage;
 import com.epam.automation.ramby.service.DataReader;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
