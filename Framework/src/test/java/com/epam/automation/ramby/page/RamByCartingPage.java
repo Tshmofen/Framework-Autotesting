@@ -1,5 +1,7 @@
 package com.epam.automation.ramby.page;
 
+import com.epam.automation.ramby.provider.LogProvider;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +16,7 @@ public class RamByCartingPage {
     private static final String CART_PAGE = "https://ram.by/cart";
     private static final String SITE_URL = "https://ram.by/";
     private final WebDriver driver;
+    private final Logger log;
 
     @FindBy(xpath = "//a[@class='btn btn-2-cart btn-2c']")
     private WebElement addToCartButton;
@@ -24,14 +27,17 @@ public class RamByCartingPage {
         this.driver = driver;
         this.productPage = productPage;
         PageFactory.initElements(driver, this);
+        this.log = LogProvider.getLog();
     }
 
     public RamByCartingPage openProductPage() {
+        log.info("Opening product page");
         driver.get(productPage);
         return this;
     }
 
     public RamByCartingPage addProductToCart() {
+        log.info("Adding product to cart");
         addToCartButton.click();
         new WebDriverWait(driver, 10)
                 .until(
@@ -44,11 +50,13 @@ public class RamByCartingPage {
     }
 
     public RamByCartingPage openCartPage() {
+        log.info("Opening cart page");
         driver.get(CART_PAGE);
         return this;
     }
 
     public boolean isProductInCart() {
+        log.info("Checking if product is in cart");
         new WebDriverWait(driver, 5)
                 .until(
                         ExpectedConditions.presenceOfElementLocated(
