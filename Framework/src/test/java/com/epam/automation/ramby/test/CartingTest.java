@@ -1,6 +1,6 @@
 package com.epam.automation.ramby.test;
 
-import com.epam.automation.ramby.page.RamByCartingPage;
+import com.epam.automation.ramby.page.CartingPage;
 import com.epam.automation.ramby.service.DataReader;
 import com.epam.automation.ramby.listener.TestListener;
 import org.testng.annotations.DataProvider;
@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @Listeners({TestListener.class})
-public class RamByCartingTest extends CommonDriverTest {
+public class CartingTest extends CommonDriverTest {
     @DataProvider
     public Object[][] productLinksData() throws FileNotFoundException {
         return DataReader.getProductsLinks();
@@ -21,7 +21,7 @@ public class RamByCartingTest extends CommonDriverTest {
 
     @Test(dataProvider = "productLinksData")
     public void addProductToCartTest(String productPage) {
-        boolean productPresence = new RamByCartingPage(driver, productPage)
+        boolean productPresence = new CartingPage(driver, productPage)
                 .openProductPage()
                 .addProductToCart()
                 .openCartPage()

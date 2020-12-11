@@ -1,0 +1,61 @@
+package com.epam.automation.ramby.test;
+
+import com.epam.automation.ramby.page.CalculatorECredit;
+import com.epam.automation.ramby.page.CalculatorVTB;
+import com.epam.automation.ramby.service.DataReader;
+import com.epam.automation.ramby.listener.TestListener;
+import org.testng.annotations.*;
+
+import java.io.FileNotFoundException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+@Listeners({TestListener.class})
+public class CalculatorTest extends CommonDriverTest {
+    @DataProvider
+    public Object[][] calculatorVTBInputData() throws FileNotFoundException {
+        return DataReader.getCalculatorVTBInput();
+    }
+
+    @DataProvider
+    public Object[][] calculatorECreditInputData() throws FileNotFoundException {
+        return DataReader.getCalculatorECreditInput();
+    }
+
+    @Test(dataProvider = "calculatorVTBInputData")
+    public void calculatorVTBPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
+        String finalPrice = new CalculatorVTB(driver)
+                .openPage(CalculatorVTB.class)
+                .sendKeysToForm(productPrice, initialFee)
+                .submitCalculatorForm()
+                .findFinalCalculatorPrice();
+
+        assertThat(finalPrice, is(equalTo(expectedPrice)));
+    }
+
+    @Test(dataProvider = "calculatorECreditInputData")
+    public void calculatorECreditPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
+        String finalPrice = new CalculatorECredit(driver)
+                .openPage(CalculatorECredit.class)
+                .sendKeysToForm(productPrice, initialFee)
+                .submitCalculatorForm()
+                .findFinalCalculatorPrice();
+
+        assertThat(finalPrice, is(equalTo(expectedPrice)));
+    }
+
+    @Test
+    public void calculatorECreditCantEnterIncorrectPrice() {
+        String productPrice = "250";
+        String initialFee = "450";
+
+        boolean warnPresence = new CalculatorECredit(driver)
+                .openPage(CalculatorECredit.class)
+                .sendKeysToForm(productPrice, initialFee)
+                .submitCalculatorForm()
+                .getPresenceOfFeeWarning();
+
+        assertThat(warnPresence, is(equalTo(true)));
+    }
+}

@@ -1,17 +1,11 @@
 package com.epam.automation.ramby.page;
 
-import com.epam.automation.ramby.provider.LogProvider;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class RamByVTBCalculatorPage {
-    private static final String CALCULATOR_PAGE = "https://ram.by/komputery-v-kredit-noutbuki-v-kredit";
-    private final WebDriver driver;
-    private final Logger log;
-
+public class CalculatorVTB extends CalculatorsPage {
     @FindBy(id = "cost_vtb")
     private WebElement priceInput;
 
@@ -30,19 +24,12 @@ public class RamByVTBCalculatorPage {
     @FindBy(id = "cost_in_credit_vtb")
     private WebElement finalPrice;
 
-    public RamByVTBCalculatorPage(WebDriver driver) {
-        this.driver = driver;
+    public CalculatorVTB(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
-        this.log = LogProvider.getLog();
     }
 
-    public RamByVTBCalculatorPage openPage() {
-        log.info("Opening VTB calculator page");
-        driver.get(CALCULATOR_PAGE);
-        return this;
-    }
-
-    public RamByVTBCalculatorPage sendKeysToVTBForm(String productPrice, String initialFee) {
+    public CalculatorVTB sendKeysToForm(String productPrice, String initialFee) {
         log.info("Sending keys to VTB calculator");
         priceInput.sendKeys(productPrice);
         initialFeeInput.sendKeys(initialFee);
@@ -51,13 +38,13 @@ public class RamByVTBCalculatorPage {
         return this;
     }
 
-    public RamByVTBCalculatorPage submitVTBCalculatorForm() {
+    public CalculatorVTB submitCalculatorForm() {
         log.info("Submitting VTB calculator form");
         submitButton.click();
         return this;
     }
 
-    public String findFinalVTBCalculatorPrice() {
+    public String findFinalCalculatorPrice() {
         log.info("Getting final price from VTB calculator form");
         return finalPrice.getText();
     }

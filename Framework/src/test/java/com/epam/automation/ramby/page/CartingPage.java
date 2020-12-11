@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class RamByCartingPage {
+public class CartingPage {
     private static final String CART_PAGE = "https://ram.by/cart";
     private static final String SITE_URL = "https://ram.by/";
     private final WebDriver driver;
@@ -23,20 +23,20 @@ public class RamByCartingPage {
 
     private final String productPage;
 
-    public RamByCartingPage(WebDriver driver, String productPage) {
+    public CartingPage(WebDriver driver, String productPage) {
         this.driver = driver;
         this.productPage = productPage;
         PageFactory.initElements(driver, this);
         this.log = LogProvider.getLog();
     }
 
-    public RamByCartingPage openProductPage() {
+    public CartingPage openProductPage() {
         log.info("Opening product page");
         driver.get(productPage);
         return this;
     }
 
-    public RamByCartingPage addProductToCart() {
+    public CartingPage addProductToCart() {
         log.info("Adding product to cart");
         addToCartButton.click();
         new WebDriverWait(driver, 10)
@@ -49,7 +49,7 @@ public class RamByCartingPage {
         return this;
     }
 
-    public RamByCartingPage openCartPage() {
+    public CartingPage openCartPage() {
         log.info("Opening cart page");
         driver.get(CART_PAGE);
         return this;

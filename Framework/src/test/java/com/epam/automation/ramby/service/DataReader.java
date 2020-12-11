@@ -7,20 +7,25 @@ import com.google.gson.stream.JsonReader;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 public class DataReader {
     private static final String PRODUCTS_LINKS_PATH = "test-data/products_links.json";
-    private static final String CALCULATOR_DATA_PATH = "test-data/calculator_input.json";
+    private static final String CALCULATOR_VTB_PATH = "test-data/calculator_vtb_input.json";
+    private static final String CALCULATOR_ECREDIT_PATH = "test-data/calculator_ecredit_input.json";
 
     public static Object[][] getProductsLinks() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + PRODUCTS_LINKS_PATH);
         return new Gson().fromJson(getJsonResourceReader(PRODUCTS_LINKS_PATH), Object[][].class);
     }
 
-    public static Object[][] getCalculatorInput() throws FileNotFoundException {
-        LogProvider.getLog().info("Reading json: " + CALCULATOR_DATA_PATH);
-        return new Gson().fromJson(getJsonResourceReader(CALCULATOR_DATA_PATH), Object[][].class);
+    public static Object[][] getCalculatorVTBInput() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + CALCULATOR_VTB_PATH);
+        return new Gson().fromJson(getJsonResourceReader(CALCULATOR_VTB_PATH), Object[][].class);
+    }
+
+    public static Object[][] getCalculatorECreditInput() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + CALCULATOR_ECREDIT_PATH);
+        return new Gson().fromJson(getJsonResourceReader(CALCULATOR_ECREDIT_PATH), Object[][].class);
     }
 
     private static JsonReader getJsonResourceReader(String jsonResourcePath) throws FileNotFoundException {
