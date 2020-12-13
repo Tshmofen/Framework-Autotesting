@@ -30,7 +30,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <!-- TestNG suite XML files -->
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng-threaded.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

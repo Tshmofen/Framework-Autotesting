@@ -15,11 +15,12 @@ public abstract class CommonDriverTest {
     // stores thread id and driver for that thread
     protected HashMap<Long, WebDriver> drivers;
 
+    public CommonDriverTest() {
+        drivers = new HashMap<>();
+    }
+
     @BeforeMethod(alwaysRun = true)
     public void browserDriverSetup() {
-        if (drivers == null) {
-            drivers = new HashMap<>();
-        }
         LogProvider.getLog().info("Initialize browser");
         drivers.put(Thread.currentThread().getId(), DriverProvider.getDriver());
     }
