@@ -14,6 +14,7 @@ public abstract class CalculatorsPage extends CommonPage {
     public <T extends CalculatorsPage> T openPage(Class<T> calculator) {
         log.info("Opening VTB calculator page");
         driver.get(CALCULATOR_PAGE);
+        //noinspection unchecked
         return (T)this;
     }
 }

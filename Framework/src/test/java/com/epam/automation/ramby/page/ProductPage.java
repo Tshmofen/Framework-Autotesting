@@ -15,12 +15,13 @@ public class ProductPage extends CommonPage {
     }
 
     public ProductPage openProductPage(String productPage) {
-        log.info("Opening product page");
+        log.info("Opening product page: " + productPage);
         driver.get(productPage);
         return this;
     }
 
     public boolean isProductInPreviousProducts(String productPage) {
+        log.info("Check if " + productPage + " is in previous products");
         String productsXpath = "//div[@class='watched-list']//a[@href='" + productPage + "']";
         int linksNumber = new WebDriverWait(driver, TIMEOUT)
                 .until(
