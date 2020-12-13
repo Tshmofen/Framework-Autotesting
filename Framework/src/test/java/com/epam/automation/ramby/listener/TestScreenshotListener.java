@@ -21,7 +21,7 @@ public class TestScreenshotListener implements ITestListener {
     }
 
     private void saveScreenshot() {
-        File screenshot = ((TakesScreenshot) DriverProvider.getDriver())
+        File screenshot = ((TakesScreenshot) new DriverProvider().getContextDriver())
                 .getScreenshotAs(OutputType.FILE);
         try{
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH-mm-ss");

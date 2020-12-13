@@ -11,9 +11,7 @@ public class SearchTest extends CommonDriverTest{
 
     @Test
     public void correctSearchKeywordsTest() {
-        long threadId = Thread.currentThread().getId();
-
-        String firstItemTitle = new SearchPage(drivers.get(threadId))
+        String firstItemTitle = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeyToSearchForm(SEARCH_WORD)
                 .submitSearchButton()
@@ -24,9 +22,7 @@ public class SearchTest extends CommonDriverTest{
 
     @Test
     public void correctSortingPriceAscendingTest() {
-        long threadId = Thread.currentThread().getId();
-
-        boolean isPriceAscending = new SearchPage(drivers.get(threadId))
+        boolean isPriceAscending = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeyToSearchForm(SEARCH_WORD)
                 .submitSearchButton()

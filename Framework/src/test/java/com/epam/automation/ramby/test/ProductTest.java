@@ -18,9 +18,7 @@ public class ProductTest extends CommonDriverTest {
 
     @Test(dataProvider = "productPairLinksData")
     public void correctAppearOfProductInPreviousProducts(String firstProduct, String secondProduct) {
-        long threadId = Thread.currentThread().getId();
-
-        boolean isInPrevious = new ProductPage(drivers.get(threadId))
+        boolean isInPrevious = new ProductPage(driverProvider.getContextDriver())
                 .openProductPage(firstProduct)
                 .openProductPage(secondProduct)
                 .isProductInPreviousProducts(firstProduct);
