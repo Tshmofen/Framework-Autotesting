@@ -32,6 +32,14 @@ public class CalculatorECredit extends CalculatorsPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public CalculatorECredit openPage() {
+        log.info("Opening ECredit calculator page");
+        driver.get(CALCULATOR_PAGE);
+        return this;
+    }
+
     public CalculatorECredit sendKeysToForm(String productPrice, String initialFee) {
         log.info("Sending keys to e-credit calculator");
         priceInput.sendKeys(productPrice);

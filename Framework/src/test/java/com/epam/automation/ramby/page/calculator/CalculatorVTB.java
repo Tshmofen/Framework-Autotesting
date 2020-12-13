@@ -29,6 +29,14 @@ public class CalculatorVTB extends CalculatorsPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public CalculatorVTB openPage() {
+        log.info("Opening VTB calculator page");
+        driver.get(CALCULATOR_PAGE);
+        return this;
+    }
+
     public CalculatorVTB sendKeysToForm(String productPrice, String initialFee) {
         log.info("Sending keys to VTB calculator");
         priceInput.sendKeys(productPrice);

@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TestListener implements ITestListener {
+public class TestScreenshotListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
-        LogProvider.getLog().info("Making screenshot");
+        LogProvider.getLog().info("Making screenshot on test failure");
         this.saveScreenshot();
     }
 
