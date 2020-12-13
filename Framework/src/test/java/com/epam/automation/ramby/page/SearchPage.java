@@ -25,6 +25,15 @@ public class SearchPage extends CommonPage{
     @FindBy(xpath = "//div[@class='items list-view']//div[@class='title']//a")
     private WebElement firstItemTitle;
 
+    @FindBy(xpath = "//div[@class='switchers']//select")
+    private WebElement sortSelector;
+
+    @FindBy(xpath = "//div[@class='switchers']//select/option[text()='недорогие']")
+    private WebElement lowPriceSortOption;
+
+    @FindBy(xpath = "//div[@class='items list-view']")
+    private WebElement searchItems;
+
     public SearchPage(WebDriver driver) {
         super(driver, LogProvider.getLog());
         PageFactory.initElements(driver, this);
@@ -51,5 +60,31 @@ public class SearchPage extends CommonPage{
     public String getFirstItemTitle() {
         log.info("Taking first item title");
         return firstItemTitle.getText();
+    }
+
+    public SearchPage selectSortingByLowPrice() {
+        log.info("Selecting sorting by low price");
+        sortSelector.click();
+        lowPriceSortOption.click();
+        return this;
+    }
+
+    public boolean isItemsPriceAscending() {
+        log.info("Checking if items price is ascending");
+        String firstItemPriceStr = searchItems.findElement(By.xpath("//div[1]//div[@class='price']")).getText();
+        String secondItemPriceStr = searchItems.findElement(By.xpath("//div[2]//div[@class='price']")).getText();
+
+        double firstItemPrice  = Double.parseDouble(
+                firstItemPriceStr
+                        .split(" ")[0]
+                        .replace(",", ".")
+        );
+        double secondItemPrice = Double.parseDouble(
+                secondItemPriceStr
+                        .split(" ")[0]
+                        .replace(",", ".")
+        );
+
+        return firstItemPrice < secondItemPrice;
     }
 }
