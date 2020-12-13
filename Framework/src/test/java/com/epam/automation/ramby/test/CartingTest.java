@@ -18,7 +18,9 @@ public class CartingTest extends CommonDriverTest {
 
     @Test(dataProvider = "productLinksData")
     public void addProductToCartTest(String productPage) {
-        boolean productPresence = new CartingPage(driver)
+        long threadId = Thread.currentThread().getId();
+
+        boolean productPresence = new CartingPage(drivers.get(threadId))
                 .openProductPage(productPage)
                 .addProductToCart()
                 .openCartPage()

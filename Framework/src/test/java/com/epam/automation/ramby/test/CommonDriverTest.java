@@ -8,19 +8,30 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 
+import java.util.HashMap;
+
 @Listeners({TestScreenshotListener.class})
 public abstract class CommonDriverTest {
-    protected WebDriver driver;
+    // stores thread id and driver for that thread
+    protected HashMap<Long, WebDriver> drivers;
 
     @BeforeMethod(alwaysRun = true)
     public void browserDriverSetup() {
+        if (drivers == null) {
+            drivers = new HashMap<>();
+        }
         LogProvider.getLog().info("Initialize browser");
-        driver = DriverProvider.getDriver();
+        drivers.put(Thread.currentThread().getId(), DriverProvider.getDriver());
     }
 
     @AfterMethod(alwaysRun = true)
     public void browserDriverShutDown(){
         LogProvider.getLog().info("Shut down browser");
-        DriverProvider.shutDriver();
+        long threadId = Thread.currentThread().getId();
+        WebDriver currentDriver = drivers.get(threadId);
+        if (currentDriver != null) {
+            DriverProvider.shutDriver(currentDriver);
+            drivers.remove(threadId);
+        }
     }
 }

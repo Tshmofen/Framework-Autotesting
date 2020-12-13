@@ -23,7 +23,9 @@ public class CalculatorTest extends CommonDriverTest {
 
     @Test(dataProvider = "calculatorVTBInputData")
     public void calculatorVTBPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
-        String finalPrice = new CalculatorVTB(driver)
+        long threadId = Thread.currentThread().getId();
+
+        String finalPrice = new CalculatorVTB(drivers.get(threadId))
                 .openPage()
                 .sendKeysToForm(productPrice, initialFee)
                 .submitCalculatorForm()
@@ -34,7 +36,9 @@ public class CalculatorTest extends CommonDriverTest {
 
     @Test(dataProvider = "calculatorECreditInputData")
     public void calculatorECreditPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
-        String finalPrice = new CalculatorECredit(driver)
+        long threadId = Thread.currentThread().getId();
+
+        String finalPrice = new CalculatorECredit(drivers.get(threadId))
                 .openPage()
                 .sendKeysToForm(productPrice, initialFee)
                 .submitCalculatorForm()
@@ -47,8 +51,9 @@ public class CalculatorTest extends CommonDriverTest {
     public void calculatorECreditCantEnterIncorrectPrice() {
         String productPrice = "250";
         String initialFee = "450";
+        long threadId = Thread.currentThread().getId();
 
-        boolean warnPresence = new CalculatorECredit(driver)
+        boolean warnPresence = new CalculatorECredit(drivers.get(threadId))
                 .openPage()
                 .sendKeysToForm(productPrice, initialFee)
                 .submitCalculatorForm()
