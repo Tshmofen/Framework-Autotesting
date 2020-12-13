@@ -21,8 +21,8 @@ public class CartingTest extends CommonDriverTest {
 
     @Test(dataProvider = "productLinksData")
     public void addProductToCartTest(String productPage) {
-        boolean productPresence = new CartingPage(driver, productPage)
-                .openProductPage()
+        boolean productPresence = new CartingPage(driver)
+                .openProductPage(productPage)
                 .addProductToCart()
                 .openCartPage()
                 .isProductInCart();

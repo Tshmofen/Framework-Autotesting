@@ -1,4 +1,4 @@
-package com.epam.automation.ramby.page;
+package com.epam.automation.ramby.page.calculator;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

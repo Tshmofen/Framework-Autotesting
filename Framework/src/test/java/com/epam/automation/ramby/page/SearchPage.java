@@ -1,6 +1,7 @@
 package com.epam.automation.ramby.page;
 
 import com.epam.automation.ramby.provider.LogProvider;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,10 +13,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class SearchPage {
+public class SearchPage extends CommonPage{
     private static final String CATALOG_PAGE = "https://ram.by/catalogsearch";
-    private final WebDriver driver;
-    private final Logger log;
 
     @FindBy(xpath = "//input[@placeholder='Поиск по каталогу']")
     private WebElement searchInput;
@@ -27,9 +26,8 @@ public class SearchPage {
     private WebElement firstItemTitle;
 
     public SearchPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver, LogProvider.getLog());
         PageFactory.initElements(driver, this);
-        this.log = LogProvider.getLog();
     }
 
     public SearchPage openPage() {

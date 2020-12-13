@@ -12,34 +12,30 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class CartingPage {
+public class CartingPage extends CommonPage{
     private static final String CART_PAGE = "https://ram.by/cart";
-    private static final String SITE_URL = "https://ram.by/";
-    private final WebDriver driver;
-    private final Logger log;
+
+    private String productPage;
 
     @FindBy(xpath = "//a[@class='btn btn-2-cart btn-2c']")
     private WebElement addToCartButton;
 
-    private final String productPage;
-
-    public CartingPage(WebDriver driver, String productPage) {
-        this.driver = driver;
-        this.productPage = productPage;
+    public CartingPage(WebDriver driver) {
+        super(driver, LogProvider.getLog());
         PageFactory.initElements(driver, this);
-        this.log = LogProvider.getLog();
     }
 
-    public CartingPage openProductPage() {
+    public CartingPage openProductPage(String productPage) {
         log.info("Opening product page");
         driver.get(productPage);
+        this.productPage = productPage;
         return this;
     }
 
     public CartingPage addProductToCart() {
         log.info("Adding product to cart");
         addToCartButton.click();
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, TIMEOUT)
                 .until(
                         ExpectedConditions.presenceOfElementLocated(
                                 // waiting until product adding window disappears (display: none;)
@@ -57,7 +53,7 @@ public class CartingPage {
 
     public boolean isProductInCart() {
         log.info("Checking if product is in cart");
-        new WebDriverWait(driver, 5)
+        new WebDriverWait(driver, TIMEOUT)
                 .until(
                         ExpectedConditions.presenceOfElementLocated(
                                 By.xpath("//div[@class='item']")

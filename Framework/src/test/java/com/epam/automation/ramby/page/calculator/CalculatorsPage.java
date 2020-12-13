@@ -1,17 +1,14 @@
-package com.epam.automation.ramby.page;
+package com.epam.automation.ramby.page.calculator;
 
+import com.epam.automation.ramby.page.CommonPage;
 import com.epam.automation.ramby.provider.LogProvider;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-public abstract class CalculatorsPage {
+public abstract class CalculatorsPage extends CommonPage {
     protected static final String CALCULATOR_PAGE = "https://ram.by/komputery-v-kredit-noutbuki-v-kredit";
-    protected final WebDriver driver;
-    protected final Logger log;
 
     public CalculatorsPage(WebDriver driver) {
-        this.driver = driver;
-        this.log = LogProvider.getLog();
+        super(driver, LogProvider.getLog());
     }
 
     public <T extends CalculatorsPage> T openPage(Class<T> calculator) {

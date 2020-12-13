@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class DataReader {
     private static final String PRODUCTS_LINKS_PATH = "test-data/products_links.json";
+    private static final String PAIR_PRODUCTS_LINKS_PATH = "test-data/pair_products_links.json";
     private static final String CALCULATOR_VTB_PATH = "test-data/calculator_vtb_input.json";
     private static final String CALCULATOR_ECREDIT_PATH = "test-data/calculator_ecredit_input.json";
 
@@ -26,6 +27,11 @@ public class DataReader {
     public static Object[][] getCalculatorECreditInput() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + CALCULATOR_ECREDIT_PATH);
         return new Gson().fromJson(getJsonResourceReader(CALCULATOR_ECREDIT_PATH), Object[][].class);
+    }
+
+    public static Object[][] getPairProductsLinks() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + PAIR_PRODUCTS_LINKS_PATH);
+        return new Gson().fromJson(getJsonResourceReader(PAIR_PRODUCTS_LINKS_PATH), Object[][].class);
     }
 
     private static JsonReader getJsonResourceReader(String jsonResourcePath) throws FileNotFoundException {

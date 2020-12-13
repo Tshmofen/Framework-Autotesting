@@ -1,7 +1,7 @@
 package com.epam.automation.ramby.test;
 
-import com.epam.automation.ramby.page.CalculatorECredit;
-import com.epam.automation.ramby.page.CalculatorVTB;
+import com.epam.automation.ramby.page.calculator.CalculatorECredit;
+import com.epam.automation.ramby.page.calculator.CalculatorVTB;
 import com.epam.automation.ramby.service.DataReader;
 import com.epam.automation.ramby.listener.TestListener;
 import org.testng.annotations.*;
