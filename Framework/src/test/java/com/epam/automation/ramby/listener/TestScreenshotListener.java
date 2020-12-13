@@ -1,7 +1,7 @@
 package com.epam.automation.ramby.listener;
 
-import com.epam.automation.ramby.provider.DriverProvider;
 import com.epam.automation.ramby.provider.LogProvider;
+import com.epam.automation.ramby.test.CommonDriverTest;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,7 +21,7 @@ public class TestScreenshotListener implements ITestListener {
     }
 
     private void saveScreenshot() {
-        File screenshot = ((TakesScreenshot) new DriverProvider().getContextDriver())
+        File screenshot = ((TakesScreenshot) CommonDriverTest.driverProvider.getContextDriver())
                 .getScreenshotAs(OutputType.FILE);
         try{
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd_HH-mm-ss");
