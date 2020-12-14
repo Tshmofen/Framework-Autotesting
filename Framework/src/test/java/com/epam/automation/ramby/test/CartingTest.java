@@ -1,6 +1,6 @@
 package com.epam.automation.ramby.test;
 
-import com.epam.automation.ramby.page.CartingPage;
+import com.epam.automation.ramby.page.ProductPage;
 import com.epam.automation.ramby.service.DataReader;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -18,11 +18,11 @@ public class CartingTest extends CommonDriverTest {
 
     @Test(dataProvider = "productLinksData")
     public void addProductToCartTest(String productPage) {
-        boolean productPresence = new CartingPage(driverProvider.getContextDriver())
+        boolean productPresence = new ProductPage(driverProvider.getContextDriver())
                 .openProductPage(productPage)
                 .addProductToCart()
                 .openCartPage()
-                .isProductInCart();
+                .isProductInCart(productPage);
 
         assertThat(productPresence, is(true));
     }

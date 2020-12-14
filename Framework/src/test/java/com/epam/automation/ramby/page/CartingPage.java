@@ -14,34 +14,9 @@ import java.util.List;
 public class CartingPage extends CommonPage{
     private static final String CART_PAGE = "https://ram.by/cart";
 
-    private String productPage;
-
-    @FindBy(xpath = "//a[@class='btn btn-2-cart btn-2c']")
-    private WebElement addToCartButton;
-
     public CartingPage(WebDriver driver) {
         super(driver, LogProvider.getLog());
         PageFactory.initElements(driver, this);
-    }
-
-    public CartingPage openProductPage(String productPage) {
-        log.info("Opening product page");
-        driver.get(productPage);
-        this.productPage = productPage;
-        return this;
-    }
-
-    public CartingPage addProductToCart() {
-        log.info("Adding product to cart");
-        addToCartButton.click();
-        new WebDriverWait(driver, TIMEOUT)
-                .until(
-                        ExpectedConditions.presenceOfElementLocated(
-                                // waiting until product adding window disappears (display: none;)
-                                By.xpath("//div[@id='progress' and @style='display: none;']")
-                        )
-                );
-        return this;
     }
 
     public CartingPage openCartPage() {
@@ -50,7 +25,7 @@ public class CartingPage extends CommonPage{
         return this;
     }
 
-    public boolean isProductInCart() {
+    public boolean isProductInCart(String productPage) {
         log.info("Checking if product is in cart");
         new WebDriverWait(driver, TIMEOUT)
                 .until(
