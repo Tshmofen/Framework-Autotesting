@@ -13,6 +13,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- sonarqube properties to analyze tests -->
+        <sonar.sources>src/test/java</sonar.sources>
     </properties>
 
     <build>
