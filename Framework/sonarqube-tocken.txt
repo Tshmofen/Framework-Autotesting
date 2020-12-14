@@ -1,1 +1,1 @@
-mvn sonar:sonar -Dsonar.host.url=http://35.189.78.24:9000 -Dsonar.login=a75501c6eb7a18ed3a944e11e5ee141a1896a60d
+mvn sonar:sonar -Dsonar.projectKey=framework-web -Dsonar.host.url=http://35.189.78.24:9000 -Dsonar.login=f0a55871564f7c38fb9046de6a0437daad2872f5
