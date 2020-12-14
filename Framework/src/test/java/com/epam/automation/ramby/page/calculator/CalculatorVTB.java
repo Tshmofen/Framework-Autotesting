@@ -29,8 +29,6 @@ public class CalculatorVTB extends CalculatorsPage {
         PageFactory.initElements(driver, this);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
     public CalculatorVTB openPage() {
         log.info("Opening VTB calculator page");
         driver.get(CALCULATOR_PAGE);

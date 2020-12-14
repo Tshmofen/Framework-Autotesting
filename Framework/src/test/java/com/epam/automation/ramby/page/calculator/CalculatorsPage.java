@@ -10,6 +10,4 @@ public abstract class CalculatorsPage extends CommonPage {
     public CalculatorsPage(WebDriver driver) {
         super(driver, LogProvider.getLog());
     }
-
-    public abstract  <T extends CalculatorsPage> T openPage();
 }

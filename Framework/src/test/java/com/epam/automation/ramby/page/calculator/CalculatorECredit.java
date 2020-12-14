@@ -32,8 +32,6 @@ public class CalculatorECredit extends CalculatorsPage {
         PageFactory.initElements(driver, this);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
     public CalculatorECredit openPage() {
         log.info("Opening ECredit calculator page");
         driver.get(CALCULATOR_PAGE);
