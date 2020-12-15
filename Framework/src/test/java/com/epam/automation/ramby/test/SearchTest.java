@@ -1,30 +1,37 @@
 package com.epam.automation.ramby.test;
 
 import com.epam.automation.ramby.page.SearchPage;
+import com.epam.automation.ramby.provider.TestDataProvider;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.io.FileNotFoundException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class SearchTest extends CommonDriverTest{
-    private final static String SEARCH_WORD = "Блок питания";
+    @DataProvider
+    public Object[][] searchKeywordsData() throws FileNotFoundException {
+        return TestDataProvider.getSearchKeywords();
+    }
 
-    @Test
-    public void correctSearchKeywordsTest() {
+    @Test(dataProvider = "searchKeywordsData")
+    public void correctSearchKeywordsTest(String searchQuery) {
         String firstItemTitle = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
-                .sendKeyToSearchForm(SEARCH_WORD)
+                .sendKeyToSearchForm(searchQuery)
                 .submitSearchButton()
                 .getFirstItemTitle();
 
-        assertThat(firstItemTitle, containsString(SEARCH_WORD));
+        assertThat(firstItemTitle, containsString(searchQuery));
     }
 
-    @Test
-    public void correctSortingPriceAscendingTest() {
+    @Test(dataProvider = "searchKeywordsData")
+    public void correctSortingPriceAscendingTest(String searchQuery) {
         boolean isPriceAscending = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
-                .sendKeyToSearchForm(SEARCH_WORD)
+                .sendKeyToSearchForm(searchQuery)
                 .submitSearchButton()
                 .selectSortingByLowPrice()
                 .isItemsPriceAscending();

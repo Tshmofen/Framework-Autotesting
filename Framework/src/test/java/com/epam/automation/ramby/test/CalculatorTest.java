@@ -45,6 +45,7 @@ public class CalculatorTest extends CommonDriverTest {
 
     @Test
     public void calculatorECreditCantEnterIncorrectPrice() {
+        // incorrect data
         String productPrice = "250";
         String initialFee = "450";
 

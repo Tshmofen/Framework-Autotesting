@@ -9,7 +9,7 @@ import org.testng.annotations.Listeners;
 
 @Listeners({TestScreenshotListener.class})
 public abstract class CommonDriverTest {
-    // providing different drivers for different thread
+    // providing different drivers for different threads
     public static DriverProvider driverProvider;
 
     public CommonDriverTest() {

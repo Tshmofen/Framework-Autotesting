@@ -12,33 +12,39 @@ public class TestDataProvider {
     private static final String PAIR_PRODUCTS_LINKS_PATH = "test-data/pair_products_links.json";
     private static final String CALCULATOR_VTB_PATH = "test-data/calculator_vtb_input.json";
     private static final String CALCULATOR_ECREDIT_PATH = "test-data/calculator_ecredit_input.json";
+    private static final String SEARCH_KEYWORDS_PATH = "test-data/search_keywords.json";
 
     public static Object[][] getProductsLinks() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + PRODUCTS_LINKS_PATH);
-        return new Gson().fromJson(getJsonResourceReader(PRODUCTS_LINKS_PATH), Object[][].class);
+        return getResourceObjects(PRODUCTS_LINKS_PATH);
     }
 
     public static Object[][] getCalculatorVTBInput() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + CALCULATOR_VTB_PATH);
-        return new Gson().fromJson(getJsonResourceReader(CALCULATOR_VTB_PATH), Object[][].class);
+        return getResourceObjects(CALCULATOR_VTB_PATH);
     }
 
     public static Object[][] getCalculatorECreditInput() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + CALCULATOR_ECREDIT_PATH);
-        return new Gson().fromJson(getJsonResourceReader(CALCULATOR_ECREDIT_PATH), Object[][].class);
+        return getResourceObjects(CALCULATOR_ECREDIT_PATH);
     }
 
     public static Object[][] getPairProductsLinks() throws FileNotFoundException {
         LogProvider.getLog().info("Reading json: " + PAIR_PRODUCTS_LINKS_PATH);
-        return new Gson().fromJson(getJsonResourceReader(PAIR_PRODUCTS_LINKS_PATH), Object[][].class);
+        return getResourceObjects(PAIR_PRODUCTS_LINKS_PATH);
     }
 
-    private static JsonReader getJsonResourceReader(String jsonResourcePath) throws FileNotFoundException {
+    public static Object[][] getSearchKeywords() throws FileNotFoundException {
+        LogProvider.getLog().info("Reading json: " + SEARCH_KEYWORDS_PATH);
+        return getResourceObjects(SEARCH_KEYWORDS_PATH);
+    }
+
+    private static Object[][] getResourceObjects(String jsonResourcePath) throws FileNotFoundException {
         URL fileResource  = TestDataProvider.class.getClassLoader().getResource(jsonResourcePath);
         if (fileResource == null) throw new FileNotFoundException();
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(fileResource.getFile()), StandardCharsets.UTF_8)
         );
-        return new JsonReader(reader);
+        return new Gson().fromJson(new JsonReader(reader), Object[][].class);
     }
 }
