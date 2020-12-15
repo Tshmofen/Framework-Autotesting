@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class DataProvider {
+public class TestDataProvider {
     private static final String PRODUCTS_LINKS_PATH = "test-data/products_links.json";
     private static final String PAIR_PRODUCTS_LINKS_PATH = "test-data/pair_products_links.json";
     private static final String CALCULATOR_VTB_PATH = "test-data/calculator_vtb_input.json";
@@ -34,7 +34,7 @@ public class DataProvider {
     }
 
     private static JsonReader getJsonResourceReader(String jsonResourcePath) throws FileNotFoundException {
-        URL fileResource  = DataProvider.class.getClassLoader().getResource(jsonResourcePath);
+        URL fileResource  = TestDataProvider.class.getClassLoader().getResource(jsonResourcePath);
         if (fileResource == null) throw new FileNotFoundException();
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(fileResource.getFile()), StandardCharsets.UTF_8)

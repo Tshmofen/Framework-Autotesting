@@ -2,7 +2,7 @@ package com.epam.automation.ramby.test;
 
 import com.epam.automation.ramby.page.calculator.CalculatorECredit;
 import com.epam.automation.ramby.page.calculator.CalculatorVTB;
-import com.epam.automation.ramby.provider.DataProvider;
+import com.epam.automation.ramby.provider.TestDataProvider;
 import org.testng.annotations.*;
 
 import java.io.FileNotFoundException;
@@ -11,14 +11,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CalculatorTest extends CommonDriverTest {
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] calculatorVTBInputData() throws FileNotFoundException {
-        return DataProvider.getCalculatorVTBInput();
+        return TestDataProvider.getCalculatorVTBInput();
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] calculatorECreditInputData() throws FileNotFoundException {
-        return DataProvider.getCalculatorECreditInput();
+        return TestDataProvider.getCalculatorECreditInput();
     }
 
     @Test(dataProvider = "calculatorVTBInputData")
