@@ -1,8 +1,7 @@
 package com.epam.automation.ramby.test;
 
 import com.epam.automation.ramby.page.ProductPage;
-import com.epam.automation.ramby.service.DataReader;
-import org.testng.annotations.DataProvider;
+import com.epam.automation.ramby.provider.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
@@ -11,9 +10,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class ProductTest extends CommonDriverTest {
-    @DataProvider
+    @org.testng.annotations.DataProvider
     public Object[][] productPairLinksData() throws FileNotFoundException {
-        return DataReader.getPairProductsLinks();
+        return DataProvider.getPairProductsLinks();
     }
 
     @Test(dataProvider = "productPairLinksData")
