@@ -1,11 +1,12 @@
 package com.epam.automation.ramby.page.calculator;
 
+import com.epam.automation.ramby.model.CalculatorTransfer;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CalculatorVTB extends CalculatorsPage {
+public class CalculatorVTB extends CalculatorPage {
     @FindBy(id = "cost_vtb")
     private WebElement priceInput;
 
@@ -27,31 +28,15 @@ public class CalculatorVTB extends CalculatorsPage {
     public CalculatorVTB(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-    }
 
-    public CalculatorVTB openPage() {
-        log.info("Opening VTB calculator page");
-        driver.get(CALCULATOR_PAGE);
-        return this;
-    }
-
-    public CalculatorVTB sendKeysToForm(String productPrice, String initialFee) {
-        log.info("Sending keys to VTB calculator");
-        priceInput.sendKeys(productPrice);
-        initialFeeInput.sendKeys(initialFee);
-        selectTimeInput.click();
-        selectTimeOption.click();
-        return this;
-    }
-
-    public CalculatorVTB submitCalculatorForm() {
-        log.info("Submitting VTB calculator form");
-        submitButton.click();
-        return this;
-    }
-
-    public String findFinalCalculatorPrice() {
-        log.info("Getting final price from VTB calculator form");
-        return finalPrice.getText();
+        CalculatorTransfer transfer = new CalculatorTransfer();
+        transfer.priceInput= this.priceInput;
+        transfer.initialFeeInput= this.initialFeeInput;
+        transfer.selectTimeInput = this.selectTimeInput;
+        transfer.selectTimeOption = this.selectTimeOption;
+        transfer.submitButton= this.submitButton;
+        transfer.finalPrice = this.finalPrice;
+        transfer.feeWarning = null;
+        super.initializeFields(transfer);
     }
 }

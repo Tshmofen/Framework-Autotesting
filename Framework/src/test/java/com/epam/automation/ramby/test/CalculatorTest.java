@@ -44,7 +44,7 @@ public class CalculatorTest extends CommonDriverTest {
     }
 
     @Test
-    public void calculatorECreditCantEnterIncorrectPrice() {
+    public void calculatorECreditCantEnterIncorrectFeePrice() {
         // incorrect data
         String productPrice = "250";
         String initialFee = "450";
@@ -55,6 +55,6 @@ public class CalculatorTest extends CommonDriverTest {
                 .submitCalculatorForm()
                 .getPresenceOfFeeWarning();
 
-        assertThat(warnPresence, is(equalTo(true)));
+        assertThat(warnPresence, is(true));
     }
 }

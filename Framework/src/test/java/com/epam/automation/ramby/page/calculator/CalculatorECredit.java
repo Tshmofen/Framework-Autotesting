@@ -1,11 +1,12 @@
 package com.epam.automation.ramby.page.calculator;
 
+import com.epam.automation.ramby.model.CalculatorTransfer;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CalculatorECredit extends CalculatorsPage {
+public class CalculatorECredit extends CalculatorPage {
     @FindBy(id = "cost_ecredit")
     private WebElement priceInput;
 
@@ -30,35 +31,15 @@ public class CalculatorECredit extends CalculatorsPage {
     public CalculatorECredit(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-    }
 
-    public CalculatorECredit openPage() {
-        log.info("Opening ECredit calculator page");
-        driver.get(CALCULATOR_PAGE);
-        return this;
-    }
-
-    public CalculatorECredit sendKeysToForm(String productPrice, String initialFee) {
-        log.info("Sending keys to e-credit calculator");
-        priceInput.sendKeys(productPrice);
-        initialFeeInput.sendKeys(initialFee);
-        selectTimeInput.click();
-        selectTimeOption.click();
-        return this;
-    }
-
-    public CalculatorECredit submitCalculatorForm() {
-        log.info("Submitting calculator e-credit form");
-        submitButton.click();
-        return this;
-    }
-
-    public boolean getPresenceOfFeeWarning() {
-        return feeWarning.isEnabled();
-    }
-
-    public String findFinalCalculatorPrice() {
-        log.info("Getting final price from e-credit calculator form");
-        return finalPrice.getText();
+        CalculatorTransfer transfer = new CalculatorTransfer();
+        transfer.priceInput= this.priceInput;
+        transfer.initialFeeInput= this.initialFeeInput;
+        transfer.selectTimeInput = this.selectTimeInput;
+        transfer.selectTimeOption = this.selectTimeOption;
+        transfer.submitButton= this.submitButton;
+        transfer.finalPrice = this.finalPrice;
+        transfer.feeWarning = this.feeWarning;
+        super.initializeFields(transfer);
     }
 }
