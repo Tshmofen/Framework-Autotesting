@@ -16,6 +16,11 @@ public class CartingTest extends CommonDriverTest {
         return TestDataProvider.getProductsLinks();
     }
 
+    @DataProvider
+    public Object[][] productPairLinksData() throws FileNotFoundException {
+        return TestDataProvider.getPairProductsLinks();
+    }
+
     @Test(dataProvider = "productLinksData")
     public void onlyOneProductAddedToCartTest(String productPage) {
         int productLinksNumber = new ProductPage(driverProvider.getContextDriver())
@@ -26,5 +31,18 @@ public class CartingTest extends CommonDriverTest {
                 .size();
 
         assertThat(productLinksNumber, is(equalTo(1)));
+    }
+
+    @Test(dataProvider = "productPairLinksData")
+    public void cartCounterProperIncreaseTest(String firstProductPage, String secondProductPage) {
+        int counterValue = new ProductPage(driverProvider.getContextDriver())
+                .openProductPage(firstProductPage)
+                .addProductToCart()
+                .openProductPage(secondProductPage)
+                .addProductToCart()
+                .goToCartingPage()
+                .getProductsCounterValue();
+
+        assertThat(counterValue, is(equalTo(2)));
     }
 }
