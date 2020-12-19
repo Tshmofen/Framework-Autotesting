@@ -6,6 +6,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -17,7 +18,7 @@ public class SearchTest extends CommonDriverTest{
     }
 
     @Test(dataProvider = "searchKeywordsData")
-    public void correctSearchKeywordsTest(String searchQuery) {
+    public void searchResultContainKeywordTest(String searchQuery) {
         String firstItemTitle = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeyToSearchForm(searchQuery)
@@ -28,14 +29,17 @@ public class SearchTest extends CommonDriverTest{
     }
 
     @Test(dataProvider = "searchKeywordsData")
-    public void correctSortingPriceAscendingTest(String searchQuery) {
-        boolean isPriceAscending = new SearchPage(driverProvider.getContextDriver())
+    public void searchSortingFirstTwoItemsPriceIsAscendingTest(String searchQuery) {
+        List<Double> itemsPrices = new SearchPage(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeyToSearchForm(searchQuery)
                 .submitSearchButton()
                 .selectSortingByLowPrice()
-                .isItemsPriceAscending();
+                .getSearchPrices(2);
 
-        assertThat(isPriceAscending, is(true));
+        double firstItemPrice = itemsPrices.get(0);
+        double secondItemPrice = itemsPrices.get(1);
+
+        assertThat(firstItemPrice, is(lessThan(secondItemPrice)));
     }
 }

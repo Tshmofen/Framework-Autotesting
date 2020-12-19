@@ -22,7 +22,7 @@ public class CalculatorTest extends CommonDriverTest {
     }
 
     @Test(dataProvider = "calculatorVTBInputData")
-    public void calculatorVTBPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
+    public void calculatorVTBPriceIsCorrectTest(String productPrice, String initialFee, String expectedPrice) {
         String finalPrice = new CalculatorVTB(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeysToForm(productPrice, initialFee)
@@ -33,7 +33,7 @@ public class CalculatorTest extends CommonDriverTest {
     }
 
     @Test(dataProvider = "calculatorECreditInputData")
-    public void calculatorECreditPriceCorrectnessTest(String productPrice, String initialFee, String expectedPrice) {
+    public void calculatorECreditPriceIsCorrectTest(String productPrice, String initialFee, String expectedPrice) {
         String finalPrice = new CalculatorECredit(driverProvider.getContextDriver())
                 .openPage()
                 .sendKeysToForm(productPrice, initialFee)

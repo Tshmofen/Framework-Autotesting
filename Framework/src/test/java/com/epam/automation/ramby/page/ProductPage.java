@@ -6,10 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProductPage extends CommonPage {
+import java.util.List;
+
+public class ProductPage extends AbstractPage {
+    private static final String ADD_PROGRESS_BAR_TEMPLATE = "//div[@id='progress' and @style='display: {state};']";
+    private static final String PREVIOUS_LIST_TEMPLATE
+            = "//div[@class='watched-list']//div[@class='content']//a[@href='{productPage}']";
 
     @FindBy(xpath = "//a[@class='btn btn-2-cart btn-2c']")
     private WebElement addToCartButton;
@@ -25,28 +28,23 @@ public class ProductPage extends CommonPage {
         return this;
     }
 
-    public CartingPage addProductToCart() {
+    public ProductPage addProductToCart() {
         log.info("Adding product to cart");
         addToCartButton.click();
-        new WebDriverWait(driver, TIMEOUT)
-                .until(
-                        ExpectedConditions.presenceOfElementLocated(
-                                // waiting until product adding window disappears (display: none;)
-                                By.xpath("//div[@id='progress' and @style='display: none;']")
-                        )
-                );
-        return new CartingPage(driver);
+        // waiting until product adding window disappears (display: none;)
+        String disappearedProgressPath = ADD_PROGRESS_BAR_TEMPLATE.replace("{state}", "none");
+        waitForElementPresence(By.xpath(disappearedProgressPath));
+        return this;
     }
 
-    public boolean isProductInPreviousProducts(String productPage) {
+    public CartingPage goToCartingPage() {
+        return new CartingPage(driver)
+                .openCartPage();
+    }
+
+    public List<WebElement> getProductLinksInPreviousList(String productPage) {
         log.info("Check if " + productPage + " is in previous products");
-        String productsXpath = "//div[@class='watched-list']//a[@href='" + productPage + "']";
-        int linksNumber = new WebDriverWait(driver, TIMEOUT)
-                .until(
-                        ExpectedConditions.presenceOfAllElementsLocatedBy(
-                                By.xpath(productsXpath)
-                        )
-                ).size();
-        return linksNumber != 0;
+        String productsPath = PREVIOUS_LIST_TEMPLATE.replace("{productPage}", productPage);
+        return waitForAllElementPresence(By.xpath(productsPath));
     }
 }

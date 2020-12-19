@@ -7,8 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SearchPage extends CommonPage{
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchPage extends AbstractPage {
     private static final String CATALOG_PAGE = "https://ram.by/catalogsearch";
+    private static final String ITEM_PRICE_TEMPLATE = "//div[{item}]//div[@class='price']";
 
     @FindBy(xpath = "//input[@placeholder='Поиск по каталогу']")
     private WebElement searchInput;
@@ -63,22 +67,25 @@ public class SearchPage extends CommonPage{
         return this;
     }
 
-    public boolean isItemsPriceAscending() {
-        log.info("Checking if items price is ascending");
-        String firstItemPriceStr = searchItems.findElement(By.xpath("//div[1]//div[@class='price']")).getText();
-        String secondItemPriceStr = searchItems.findElement(By.xpath("//div[2]//div[@class='price']")).getText();
+    public List<Double> getSearchPrices(int itemsToFind) {
+        log.info("Getting first " + itemsToFind + " items prices");
 
-        double firstItemPrice  = Double.parseDouble(
-                firstItemPriceStr
-                        .split(" ")[0]
-                        .replace(",", ".")
-        );
-        double secondItemPrice = Double.parseDouble(
-                secondItemPriceStr
-                        .split(" ")[0]
-                        .replace(",", ".")
-        );
+        List<Double> prices = new ArrayList<>(itemsToFind);
+        for(int i = 1; i <= itemsToFind; i++) {
+            String itemPath = ITEM_PRICE_TEMPLATE.replace("{item}", String.valueOf(i));
+            String itemPriceStr = searchItems.findElement(By.xpath(itemPath)).getText();
+            double itemPrice = parsePriceToDouble(itemPriceStr);
+            prices.add(itemPrice);
+        }
 
-        return firstItemPrice < secondItemPrice;
+        return prices;
+    }
+
+    public static double parsePriceToDouble(String priceStr) {
+        return Double.parseDouble(
+                priceStr
+                .split(" ")[0]
+                .replace(",", ".")
+        );
     }
 }

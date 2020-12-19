@@ -17,13 +17,14 @@ public class CartingTest extends CommonDriverTest {
     }
 
     @Test(dataProvider = "productLinksData")
-    public void addProductToCartTest(String productPage) {
-        boolean productPresence = new ProductPage(driverProvider.getContextDriver())
+    public void onlyOneProductAddedToCartTest(String productPage) {
+        int productLinksNumber = new ProductPage(driverProvider.getContextDriver())
                 .openProductPage(productPage)
                 .addProductToCart()
-                .openCartPage()
-                .isProductInCart(productPage);
+                .goToCartingPage()
+                .getAllProductLinks(productPage)
+                .size();
 
-        assertThat(productPresence, is(true));
+        assertThat(productLinksNumber, is(equalTo(1)));
     }
 }

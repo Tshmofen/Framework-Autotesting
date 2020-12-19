@@ -17,12 +17,13 @@ public class ProductTest extends CommonDriverTest {
     }
 
     @Test(dataProvider = "productPairLinksData")
-    public void correctAppearOfProductInPreviousProducts(String firstProduct, String secondProduct) {
-        boolean isInPrevious = new ProductPage(driverProvider.getContextDriver())
+    public void appearsOneProductInPreviousProductsTest(String firstProduct, String secondProduct) {
+        int productLinksNumber = new ProductPage(driverProvider.getContextDriver())
                 .openProductPage(firstProduct)
                 .openProductPage(secondProduct)
-                .isProductInPreviousProducts(firstProduct);
+                .getProductLinksInPreviousList(firstProduct)
+                .size();
 
-        assertThat(isInPrevious, is(true));
+        assertThat(productLinksNumber, is(equalTo(1)));
     }
 }
