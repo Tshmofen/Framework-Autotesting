@@ -38,12 +38,13 @@ public class ProductPage extends AbstractPage {
     }
 
     public CartingPage goToCartingPage() {
+        log.info("Going to cart page");
         return new CartingPage(driver)
                 .openCartPage();
     }
 
     public List<WebElement> getProductLinksInPreviousList(String productPage) {
-        log.info("Check if " + productPage + " is in previous products");
+        log.info("Getting all " + productPage + " links in previous products");
         String productsPath = PREVIOUS_LIST_TEMPLATE.replace("{productPage}", productPage);
         return waitForAllElementPresence(By.xpath(productsPath));
     }

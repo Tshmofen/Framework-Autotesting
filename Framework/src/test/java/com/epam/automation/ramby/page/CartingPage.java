@@ -36,6 +36,7 @@ public class CartingPage extends AbstractPage {
     }
 
     public int getProductsCounterValue() {
+        log.info("Getting product cart counter value");
         return Integer.parseInt(productsCounter.getText());
     }
 }

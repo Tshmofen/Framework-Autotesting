@@ -82,6 +82,7 @@ public class SearchPage extends AbstractPage {
     }
 
     public static double parsePriceToDouble(String priceStr) {
+        LogProvider.getLog().info("Parsing string into double");
         return Double.parseDouble(
                 priceStr
                 .split(" ")[0]

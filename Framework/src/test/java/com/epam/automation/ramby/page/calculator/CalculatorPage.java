@@ -28,13 +28,13 @@ public abstract class CalculatorPage extends AbstractPage {
     }
 
     public CalculatorPage openPage() {
-        log.info("Opening VTB calculator page");
+        log.info("Opening calculator page");
         driver.get(CALCULATOR_PAGE);
         return this;
     }
 
     public CalculatorPage sendKeysToForm(String productPrice, String initialFee) {
-        log.info("Sending keys to VTB calculator");
+        log.info("Sending keys to calculator");
         priceInput.sendKeys(productPrice);
         initialFeeInput.sendKeys(initialFee);
         selectTimeInput.click();
@@ -43,17 +43,18 @@ public abstract class CalculatorPage extends AbstractPage {
     }
 
     public CalculatorPage submitCalculatorForm() {
-        log.info("Submitting VTB calculator form");
+        log.info("Submitting calculator form");
         submitButton.click();
         return this;
     }
 
     public boolean getPresenceOfFeeWarning() {
-        return feeWarning.isEnabled();
+        log.info("Checking if feeWarning is exists");
+        return feeWarning != null;
     }
 
     public String findFinalCalculatorPrice() {
-        log.info("Getting final price from VTB calculator form");
+        log.info("Getting final price from calculator form");
         return finalPrice.getText();
     }
 

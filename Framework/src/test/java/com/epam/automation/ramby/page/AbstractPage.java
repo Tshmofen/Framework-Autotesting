@@ -22,6 +22,7 @@ public abstract class AbstractPage {
     }
 
     public void waitForElementPresence(By selector) {
+        log.info("Waiting for element: " + selector.toString());
         new WebDriverWait(driver, TIMEOUT)
                 .until(
                         ExpectedConditions.presenceOfElementLocated(
@@ -31,6 +32,7 @@ public abstract class AbstractPage {
     }
 
     public List<WebElement> waitForAllElementPresence(By selector) {
+        log.info("Waiting for all elements: " + selector.toString());
        return new WebDriverWait(driver, TIMEOUT)
                 .until(
                         ExpectedConditions.presenceOfAllElementsLocatedBy(
