@@ -5,23 +5,12 @@ import com.epam.automation.ramby.page.calculator.CalculatorVTB;
 import com.epam.automation.ramby.provider.TestDataProvider;
 import org.testng.annotations.*;
 
-import java.io.FileNotFoundException;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CalculatorTest extends CommonDriverTest {
-    @DataProvider
-    public Object[][] calculatorVTBInputData() throws FileNotFoundException {
-        return TestDataProvider.getCalculatorVTBInput();
-    }
 
-    @DataProvider
-    public Object[][] calculatorECreditInputData() throws FileNotFoundException {
-        return TestDataProvider.getCalculatorECreditInput();
-    }
-
-    @Test(dataProvider = "calculatorVTBInputData")
+    @Test(dataProvider = "getCalculatorVTBInput", dataProviderClass = TestDataProvider.class)
     public void calculatorVTBPriceIsCorrectTest(String productPrice, String initialFee, String expectedPrice) {
         String finalPrice = new CalculatorVTB(driverProvider.getContextDriver())
                 .openPage()
@@ -32,7 +21,7 @@ public class CalculatorTest extends CommonDriverTest {
         assertThat(finalPrice, is(equalTo(expectedPrice)));
     }
 
-    @Test(dataProvider = "calculatorECreditInputData")
+    @Test(dataProvider = "getCalculatorECreditInput", dataProviderClass = TestDataProvider.class)
     public void calculatorECreditPriceIsCorrectTest(String productPrice, String initialFee, String expectedPrice) {
         String finalPrice = new CalculatorECredit(driverProvider.getContextDriver())
                 .openPage()
